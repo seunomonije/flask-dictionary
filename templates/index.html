@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+  <body>
+    <div id="content">
+
+      <div id="input-area">
+        <h1>Yale University Yoruba Dictionary</h1>
+        <div id="dictionary-modes">
+          <select id="mode">
+            <option value="ety">English to Yoruba</option>
+            <option value="yte">Yoruba to English</option>
+          </select>
+        </div>
+        <div id="inputs">
+          <input id="word-input" name="yoruba-word">
+          <input id="word-submit" type="submit" value="Search!">
+        </div>
+        <div id="tone-list">
+          <div id="tone-buttons"></div>
+        </div>
+      </div>
+
+      <div id="result-area">
+        <div id="each-result"></div>
+      </div>
+
+      <div id="footer">
+        <div id="footer-header">
+          <p>Yoruba Dictionary created by:</p>
+        </div>
+        <div id="footer-content">
+          <p class="creators">Oluseun (Seun) Omonije YC '22</p>
+          <p class="creators">Victor Ayeni YC '20</p>
+          <p class="creators">Dr. Oluseye Adesola</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</html>

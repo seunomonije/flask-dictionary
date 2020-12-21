@@ -1,0 +1,129 @@
+body {
+  /* allow for full width middle portion */
+  margin: 0px;
+  overflow-y: hidden;
+}
+
+h1 {
+  font-family: Helvetica, sans-serif;
+  font-size: 30px;
+  margin-left: 5px;
+}
+
+input {
+  flex-grow: 2;
+}
+
+input:focus {
+  outline: none;
+}
+
+#content {
+  width: 80%;
+  min-width: 700px;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 10px;
+  background-color: #d3d3d3;
+}
+
+#dictionary-modes {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+
+.toggles {
+  width: 50%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  text-align: center;
+}
+
+#inputs {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 2% auto;
+}
+
+#word-input {
+  width: 70%;
+  border: none;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;  font-size: 25px;
+  padding: 5px;
+  background-color: #e7f5fe;
+}
+
+#word-submit {
+  width: 90px;
+  font-size: 20px;
+   /* height of input field is 29px */
+  color: #0f4d92;
+  background-color: white;
+  margin: none;
+  border: none;
+  border-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+#yoruba-word-submit:hover {
+  color: green;
+}
+
+#tone-list {
+  display: flex;
+  margin: 10px auto;
+  width: 80%;
+}
+
+#tone-buttons {
+  margin: 0 auto;
+}
+
+.result {
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #0f4d92;
+  background-color: white;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+}
+
+#each-result {
+  display: flex;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.creators {
+  background-color: #0f4d92;
+  font-size: 18px;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+#footer-content {
+  display: flex;
+}
