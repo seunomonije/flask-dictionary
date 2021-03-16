@@ -106,7 +106,7 @@ input:focus {
 }
 
 #each-result {
-  display: flex;
+  /*display: flex;*/
 }
 
 #footer {

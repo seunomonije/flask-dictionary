@@ -65,10 +65,10 @@ function createAndDisplayYorubaTones() {
     el.addEventListener('click', () => {
        // Handles combined underdots
       if (typeof code == 'object'){
-        document.getElementById('yoruba-word-input').value += String.fromCharCode(code[0], code[1]);
+        document.getElementById('word-input').value += String.fromCharCode(code[0], code[1]);
         return
       } else {
-      document.getElementById('yoruba-word-input').value += String.fromCharCode(code);
+      document.getElementById('word-input').value += String.fromCharCode(code);
       }
     })
     toneList.appendChild(el);
@@ -118,7 +118,10 @@ function displayResultsFromServer(json) {
 }
 
 function clearPastResults() {
-  document.getElementById('each-result').innerHTML = '';
+  const childNodes = document.getElementById('each-result').childNodes;
+  childNodes.forEach(div => {
+    div.innerHTML = '';
+  })
 }
 
 function showResultHeader() {
@@ -137,13 +140,41 @@ function showResultHeader() {
 }
 
 function createElsForEachResult(array){
-  const resultDiv = document.getElementById('each-result')
+  const definitionDiv = document.getElementById('opposite-definition');
+  const partOfSpeechDiv = document.getElementById('part-of-speech');
+  const esDiv = document.getElementById('english-sentence');
+  const ysDiv = document.getElementById('yoruba-sentence');
 
-  array.forEach((item) => {
-    const element = document.createElement('p');
-    element.setAttribute('class', 'result');
-    element.innerText = item;
+  const oppositeDef = array[0];
+  const alternativeOppositeDef = array[1];
+  const partOfSpeech = array[2];
+  const englishSentence = array[3];
+  const yorubaSentence = array[4];
+
+  const definitionEl = document.createElement('h3');
+  //definitionEl.setAttribute('class', 'result')
+  definitionEl.innerText = `Definition(s): ${oppositeDef} ${alternativeOppositeDef}`;
+
+  const partOfSpeechEl = document.createElement('p');
+  //partOfSpeechEl.setAttribute('class', 'result');
+  partOfSpeechEl.innerText = `Part of Speech: ${partOfSpeech}`;
+
+  const englishSentenceEl = document.createElement('p');
+  englishSentenceEl.innerText = `English sentence: ${englishSentence}`;
+
+  const yorubaSentenceEl = document.createElement('p');
+  yorubaSentenceEl.innerText = `Yoruba sentence: ${yorubaSentence}`;
+
+  definitionDiv.append(definitionEl);
+  partOfSpeechDiv.append(partOfSpeechEl);
+  esDiv.append(englishSentenceEl);
+  ysDiv.append(yorubaSentenceEl);
+
+  // array.forEach((item) => {
+  //   const element = document.createElement('p');
+  //   element.setAttribute('class', 'result');
+  //   element.innerText = item;
     
-    resultDiv.append(element);
-  })
+  //   resultDiv.append(element);
+  // })
 }
