@@ -1,7 +1,6 @@
 body {
   /* allow for full width middle portion */
   margin: 0px;
-  overflow-y: hidden;
 }
 
 h1 {
@@ -23,7 +22,6 @@ input:focus {
   min-width: 700px;
   max-width: 1000px;
   margin: 0 auto;
-  height: 100vh;
   padding-top: 10px;
   background-color: #d3d3d3;
 }
@@ -109,10 +107,18 @@ input:focus {
   /*display: flex;*/
 }
 
+#words-in-dictionary-header {
+  display: flex;
+}
+
+.letter-header-el {
+  margin: 1%;
+}
+
 #footer {
-  position: fixed;
   bottom: 0;
   width: 100%;
+  background-color: #f3f3f3;
 }
 
 .creators {

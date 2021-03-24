@@ -12,6 +12,15 @@ window.onload = () => {
 
   // Sets the global dictionary mode. If false, mode is Yoruba to english.
   englishToYoruba = true;
+
+  // Add the header to the bottom
+  addWordsInDictionaryHeader();
+
+  // Listen for click on english letters to get all yoruba words
+  letterHeaderEls = document.getElementsByClassName('letter-header-el');
+  for (el of letterHeaderEls){
+    el.addEventListener('click', getMatchingEnglishLetterWords);
+  }
 }
 
 function getResultsFromServer(){
@@ -20,6 +29,13 @@ function getResultsFromServer(){
   } else {
     getYorubaWordFromServer();
   }
+}
+
+function clearPastResults(id) {
+  const childNodes = document.getElementById(id).childNodes;
+  childNodes.forEach(div => {
+    div.innerHTML = '';
+  })
 }
 
 function changeGlobalDictMode() {
@@ -112,16 +128,9 @@ function fetchEnglish(word) {
 }
 
 function displayResultsFromServer(json) {
-  clearPastResults();
+  clearPastResults('each-result');
   showResultHeader();
   createElsForEachResult(json);
-}
-
-function clearPastResults() {
-  const childNodes = document.getElementById('each-result').childNodes;
-  childNodes.forEach(div => {
-    div.innerHTML = '';
-  })
 }
 
 function showResultHeader() {
@@ -142,15 +151,15 @@ function showResultHeader() {
 function createElsForEachResult(array){
   const definitionDiv = document.getElementById('opposite-definition');
   const partOfSpeechDiv = document.getElementById('part-of-speech');
-  const esDiv = document.getElementById('english-sentence');
   const ysDiv = document.getElementById('yoruba-sentence');
+  const esDiv = document.getElementById('english-sentence');
 
   const oppositeDef = array[0];
   const alternativeOppositeDef = array[1];
   const partOfSpeech = array[2];
-  const englishSentence = array[3];
-  const yorubaSentence = array[4];
-
+  const yorubaSentence = array[3];
+  const englishSentence = array[4];
+  
   const definitionEl = document.createElement('h3');
   //definitionEl.setAttribute('class', 'result')
   definitionEl.innerText = `Definition(s): ${oppositeDef} ${alternativeOppositeDef}`;
@@ -159,17 +168,17 @@ function createElsForEachResult(array){
   //partOfSpeechEl.setAttribute('class', 'result');
   partOfSpeechEl.innerText = `Part of Speech: ${partOfSpeech}`;
 
-  const englishSentenceEl = document.createElement('p');
-  englishSentenceEl.innerText = `English sentence: ${englishSentence}`;
-
   const yorubaSentenceEl = document.createElement('p');
   yorubaSentenceEl.innerText = `Yoruba sentence: ${yorubaSentence}`;
 
+  const englishSentenceEl = document.createElement('p');
+  englishSentenceEl.innerText = `English sentence: ${englishSentence}`;
+
   definitionDiv.append(definitionEl);
   partOfSpeechDiv.append(partOfSpeechEl);
-  esDiv.append(englishSentenceEl);
   ysDiv.append(yorubaSentenceEl);
-
+  esDiv.append(englishSentenceEl);
+  
   // array.forEach((item) => {
   //   const element = document.createElement('p');
   //   element.setAttribute('class', 'result');
@@ -177,4 +186,60 @@ function createElsForEachResult(array){
     
   //   resultDiv.append(element);
   // })
+}
+
+/*
+**********
+**********  BOTTOM PORTION
+**********
+*/
+
+function addWordsInDictionaryHeader() {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const wordsInDictionaryHeader = document.getElementById('words-in-dictionary-header');
+
+  for (const letter of letters) {
+    const letterEl = document.createElement('a');
+    letterEl.innerText = letter;
+    letterEl.setAttribute('href', `#${letter}`);
+    letterEl.setAttribute('id', letter);
+    letterEl.setAttribute('class', 'letter-header-el');
+
+    wordsInDictionaryHeader.appendChild(letterEl);
+  }
+
+}
+
+function getMatchingEnglishLetterWords() {
+  let id = this.getAttribute('id').toLowerCase();
+  fetchMatchingEnglishLetterList(id);
+}
+
+function fetchMatchingEnglishLetterList(letter) {
+  // Fetches the list of matching yoruba words from server
+  fetch(`/get-yoruba-by-letter/${letter}`)
+    .then((response) => {
+      return response.json();
+    }).then((json) => {
+      console.log(json);
+      displayEnglishLetterMatches(json)
+    })
+}
+
+function displayEnglishLetterMatches(json) {
+  clearPastResults('words-in-dictionary-result');
+  const resultDiv = document.getElementById('words-in-dictionary-result');
+  for (pair of json) {
+    if (pair[0] == "") {
+      continue;
+    }
+    const createdElement = createLetterMatchEl(pair);
+    resultDiv.append(createdElement);
+  }
+}
+
+function createLetterMatchEl(pair) {
+  const el = document.createElement('p');
+  el.innerText = `${pair[0]} : ${pair[1]}`;
+  return el;
 }
