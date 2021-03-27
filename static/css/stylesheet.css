@@ -104,7 +104,7 @@ input:focus {
 }
 
 #each-result {
-  display: flex;
+  /*display: flex;*/
 }
 
 #words-in-dictionary-header {
