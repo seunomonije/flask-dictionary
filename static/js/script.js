@@ -94,7 +94,7 @@ function createAndDisplayYorubaTones() {
 
 function getEnglishWordFromServer() {
   const englishWord = getWordFromHTML();
-  fetchEnglish(englishWord);
+  fetchEnglish(englishWord.toLowerCase());
 }
 
 function getYorubaWordFromServer() {
